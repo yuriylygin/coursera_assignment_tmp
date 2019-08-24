@@ -23,7 +23,7 @@ def calc_age(uid):
     now = datetime.now()
     friends_birth_years = []
     for friend in vk_user_freinds.json().get('response').get('items'):
-        if 'bdate' in friend and re.match(r"[0-9]+.[0-9]+.[0-9]+", friend['bdate']):
+        if 'bdate' in friend and re.match(r"\d+.\d+.\d+", friend['bdate']):
             byear = int(friend.get('bdate').split(sep='.')[2])
             friends_birth_years.append(now.year - byear)
 
