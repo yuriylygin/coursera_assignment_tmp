@@ -1,36 +1,70 @@
+from json.decoder import JSONDecodeError
+
+import requests
+
+ACCESS_TOKEN = '17da724517da724517da72458517b8abce117da17da' \
+               '72454d235c274f1a2be5f45ee711'
+API_URL = 'https://api.vk.com/method'
+V = '5.71'
+
+
+def get_user_id(uid):
+    users_get = '{}/users.get'.format(API_URL)
+    resp = requests.get(users_get, params={
+        'access_token': ACCESS_TOKEN,
+        'user_ids': uid,
+        'v': V
+    })
+    try:
+        resp = resp.json()
+        resp = resp['response']
+        user = resp[0]
+        return user['id']
+    except (JSONDecodeError, IndexError, KeyError):
+        pass
+
+
+def get_friends(user_id):
+    friends_get = '{}/friends.get'.format(API_URL)
+    resp = requests.get(friends_get, params={
+        'access_token': ACCESS_TOKEN,
+        'user_id': user_id,
+        'fields': 'bdate',
+        'v': V
+    })
+    try:
+        resp = resp.json()
+        resp = resp['response']
+        return resp['items']
+    except (JSONDecodeError, KeyError):
+        pass
+
+
 def calc_age(uid):
-    import requests
-    from collections import Counter
-    import re
-    from datetime import datetime
+    user_id = get_user_id(uid)
+    if user_id is None:
+        return
 
-    access_token = '994f2b77994f2b77994f2b77549923276b9994f994f2b77c40a58f91fc51ab0518224f8'
+    friends = get_friends(user_id)
+    if friends is None:
+        return
 
-    users_params = dict(user_ids=uid,
-                        fields='bdate',
-                        access_token=access_token,
-                        v='5.71')
+    years = {}
+    for friend in friends:
+        bdate = friend.get('bdate')
+        if not bdate:
+            continue
 
-    vk_user = requests.get('https://api.vk.com/method/users.get', params=users_params)
+        bdate = bdate.split('.')
+        if len(bdate) != 3:
+            continue
 
-    friends_params = dict(user_id=vk_user.json()['response'][0]['id'],
-                          fields='bdate',
-                          access_token=access_token,
-                          v='5.71')
+        year = int(bdate[2])
+        diff = 2018 - year
+        years.setdefault(diff, 0)
+        years[diff] += 1
 
-    vk_user_freinds = requests.get('https://api.vk.com/method/friends.get', params=friends_params)
-
-    now = datetime.now()
-    friends_birth_years = []
-    for friend in vk_user_freinds.json()['response']['items']:
-        if 'bdate' in friend and re.match(r"[0-9]+.[0-9]+.[0-9]+", friend['bdate']):
-            byear = int(friend['bdate'].split(sep='.')[2])
-            friends_birth_years.append(now.year - byear)
-
-    friends_birth_years.sort()
-    years_count = Counter(friends_birth_years)
-
-    return years_count.most_common()
+    return sorted(years.items(), key=lambda v: (v[1], -v[0]), reverse=True)
 
 
 if __name__ == '__main__':
