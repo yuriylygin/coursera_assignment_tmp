@@ -1,5 +1,8 @@
 def calc_age(uid):
     import requests
+    from collections import Counter
+    import re
+    from datetime import datetime
 
     access_token = '994f2b77994f2b77994f2b77549923276b9994f994f2b77c40a58f91fc51ab0518224f8'
 
@@ -17,10 +20,6 @@ def calc_age(uid):
 
     vk_user_freinds = requests.get('https://api.vk.com/method/friends.get', params=friends_params)
 
-    import re
-    from datetime import datetime
-    import numpy as np
-
     now = datetime.now()
     friends_birth_years = []
     for friend in vk_user_freinds.json()['response']['items']:
@@ -28,16 +27,12 @@ def calc_age(uid):
             byear = int(friend['bdate'].split(sep='.')[2])
             friends_birth_years.append(now.year - byear)
 
-    years, count = np.unique(np.array(friends_birth_years),
-                             return_counts=True)
+    friends_birth_years.sort()
+    years_count = Counter(friends_birth_years)
 
-    years_count = list(zip(years, count))
-    years_count.sort(key=lambda x: x[1], reverse=True)
-
-    return years_count
+    return years_count.most_common()
 
 
 if __name__ == '__main__':
     res = calc_age('reigning')
-    # res = calc_age('id11613')
     print(res)
