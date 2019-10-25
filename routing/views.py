@@ -1,8 +1,10 @@
 from django.http import HttpResponse
 from django.views.decorators.http import require_GET, require_POST
+from django.views.decorators.csrf import csrf_exempt
 
 
 @require_GET
+@csrf_exempt
 def simple_route(request):
     return HttpResponse()
 
@@ -22,6 +24,7 @@ def sum_route(request, a, b):
 
 
 @require_GET
+@csrf_exempt
 def sum_get_method(request):
     try:
         a = int(request.GET.get('a'))
@@ -33,6 +36,7 @@ def sum_get_method(request):
 
 
 @require_POST
+@csrf_exempt
 def sum_post_method(request):
     try:
         a = int(request.POST.get('a'))
