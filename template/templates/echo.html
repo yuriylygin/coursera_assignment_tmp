@@ -1,0 +1,14 @@
+{% if HTTP_X_PRINT_STATEMENT %}
+    statement is {{ HTTP_X_PRINT_STATEMENT }}
+{% else %}
+    {% if http_method == 'GET' and GET_params %}
+        {{ http_method | lower }} {% for item in GET_params %}{{ item.0 }}: {{ item.1 }}
+        {% endfor %}
+    {% elif http_method == 'POST' and POST_params %}
+        {{ http_method | lower }} {% for item in POST_params %}{{ item.0 }}: {{ item.1 }}
+        {% endfor %}
+    {% endif %}
+    statement is empty
+{% endif %}
+
+
