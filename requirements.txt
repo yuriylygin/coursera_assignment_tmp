@@ -1,2 +1,4 @@
 django
 requests
+django-extensions #for creating jupyter-notebook page (also needed 'django_extensions' in INSTALLED_APPS)
+jupyter
