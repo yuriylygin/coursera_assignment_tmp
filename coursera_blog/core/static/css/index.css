@@ -1,0 +1,29 @@
+.main-avatar {
+    width: 100%;
+}
+
+.secondary-avatar {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.content {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 1rem;
+}
+
+.col__auto {
+    margin: auto;
+}
+
+.secondary {
+    border: 1px solid #dee2e6;
+    border-radius: 1rem;
+}
+
+.message__stretch {
+    width: 100%;
+}
