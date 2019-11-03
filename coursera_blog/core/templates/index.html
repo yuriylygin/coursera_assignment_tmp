@@ -4,122 +4,154 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Stackoverflow</title>
+    <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static "css/index.css" %}">
+
+
+    <script type="text/javascript" src="{% static "jquery/jquery-3.4.1.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    {% block scripts %}{% endblock %}
+    {% block styles %}{% endblock %}
 </head>
 <body>
-    <div class="wrapper">
-        <div class="header">
-            <div class="inner-header">
-                <div id="Stackoverflow">
-                    <p>Stackoverflow</p>
-                </div>
-                <div class="box">
-                        <div class="container-2">
-                            <span class="icon"><i class="fa fa-search"></i></span>
-                            <input type="search" id="search" placeholder="Search" />
-                        </div>
-                </div>
-                <div class="therd">
-                    <nav>
-                        <ul class="header-menu">
-                            <li>
-                                <a href="#">
-                                    log in
-                                </a> 
-                            </li>
-                            <li>
-                                <a href="#">
-                                    register
-                                </a> 
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="inner-content-1">
-                <div class="content-first">
-                    <div class="avatar-1">
-                        <div id="square">
-                            <input type="button" id="file-Avatar" value="avatar" />
-                        </div>
-                        <input type="number" id="tentacles" name="tentacles" value="5">
-                    </div>
-                </div>
-                <div class="content-second">
-                    <h2>How to build a moon park ?</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-                    
-                    <p>Tegs: <a href="#">black-jack</a><a href="#">bender</a></p>
-                </div>
-            </div>
-            <div class="inner-content-2">
-                <div class="inner-content-2-answer">
-                    <div class="inner-content-2-answer-avatar">
-                        <div id="square2">
-                            <input type="button" id="file-Avatar2" value="avatar" />
-                        </div>
-                        <input type="number" id="tentacles2" name="tentacles2" value="3">
-                    </div>
-                    <div class="inner-content-2-answer-text">
-                        <p>First of all, I would like to thank you. I can tell that you believe your response to be helpful feedback, so I would like to thank you for not attempting to thinly veil an attempt to silence me, but to actually start a discussion.</p>
-                    </div> 
-                </div>
-            </div>
-            <div class="inner-content-2">
-                    <div class="inner-content-2-answer">
-                        <div class="inner-content-2-answer-avatar">
-                            <div id="square2">
-                                <input type="button" id="file-Avatar2" value="avatar" />
-                            </div>
-                            <input type="number" id="tentacles2" name="tentacles2" value="3">
-                        </div>
-                        <div class="inner-content-2-answer-text">
-                            <p>First of all, I would like to thank you. I can tell that you believe your response to be helpful feedback, so I would like to thank you for not attempting to thinly veil an attempt to silence me, but to actually start a discussion.</p>
-                        </div> 
-                    </div>
-                </div>
-            
-            <div class="inner-content-3">
-                    <textarea id="answerr" rows="8" cols="50" placeholder="Enter your answer here"></textarea>
-                    <input type="button" id="answer-button" name="answer-button" value="Answer">
-            </div>
-        </div>
-        <div class="sidebar">
-            <div class="inner-sidebar-1">
-                    <h1>Popular Tags</h1>
-                    <p>coursera     python</p>
-                    <p>mysql    django</p>
-            </div>
-            <div class="inner-sidebar-2">
-                    <h1>Best Members</h1>
-                    <nav>
-                            <ul class="best-members">
-                                <li>
-                                    <a href="#">Mr.Freeman</a> 
-                                </li>
-                                <li>
-                                    <a href="#">Dr.House</a> 
-                                </li>
-                                <li>
-                                    <a href="#">Bender</a> 
-                                </li>
-                                <li>
-                                    <a href="#">Queen Victoria</a> 
-                                </li>    
-                            </ul>
-                        </nav>
-            </div>
-            
-        </div>        
-    </div>
-
-    
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+
+<div class="alert alert-primary">
+    <div class="container" role="alert">
+        <div class="row">
+            <div class="col-4" >Stackoverflow</div>
+            <div class="col-5"> <input name="q" type="text" placeholder="Search…" value="" autocomplete="off" maxlength="240" class="s-input s-input__search js-search-field " aria-label="Search" aria-controls="top-search" data-controller="s-popover" data-action="focus->s-popover#show" data-s-popover-placement="bottom-start">
+            </div>
+            <div class="col-2" ><a href="#"  data-ga="[&quot;top navigation&quot;,&quot;login button click&quot;,null,null,null]">Log in</a></div>
+            <div class="col-1" ><a class="btn btn-primary" href="#" role="button">Sign up</a></div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="media">
+                    <img src="https://klike.net/uploads/posts/2019-03/medium/1551512888_2.jpg" width="189" height="189"  class="mr-3" alt="...">
+                        <div class="media-body">
+
+                        </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">like</button>
+                    <button type="button" class="btn btn-default">disslike</button>
+                    <button type="button" class="btn btn-default">5</button>
+                </div>
+
+            </div>
+             <div class="col-6"> <h3> How to build a moon park?</h3>
+                 <h6>Some text </h6>
+                 <h6>Some text </h6>
+                 Tags: <a href="#"  data-ga="[&quot;top navigation&quot;,&quot;login button click&quot;,null,null,null]">black-jack</a> <a href="#"  data-ga="[&quot;top navigation&quot;,&quot;login button click&quot;,null,null,null]">bender</a>
+             </div>
+               <div class="col-2"> <h1> Popular Tags</h1>
+                 <h6>coursera python</h6>
+                 <h6>mysql django </h6>
+                 <br><br />
+                   <br><br />
+                 <h1> Best Members</h1>
+             </div>
+        </div>
+</div>
+<hr align="left" width="900" color="Black" />
+
+<div class="container">
+
+<div class="row">
+ <div class="col-8">
+        <div class="row">
+
+                <div class="card" style="width: 100rem;">
+                <div class="media">
+                    <img src="https://klike.net/uploads/posts/2019-03/medium/1551512888_2.jpg" width="189" height="189"  class="mr-3" alt="...">
+                    <div class="media-body">
+                        <h5 class="mt-0">Media heading</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+
+                </div>
+                <div class="btn-group">
+                        <button type="button" class="btn btn-default">like</button>
+                        <button type="button" class="btn btn-default">disslike</button>
+                        <button type="button" class="btn btn-default">5</button>
+                </div>
+
+                </div>
+        </div>
+     </div>
+    <div class="col-2">
+
+    </div>
+    <div class="col-2">
+          <p><a href="#" class="text-primary">Mr. Freedman</a></p>
+          <p><a href="#" class="text-primary">Dr. House</a></p>
+          <p><a href="#" class="text-primary">Bender</a></p>
+          <p><a href="#" class="text-primary">Queen Victoria</a></p>
+
+    </div>
+</div>
+
+</div>
+
+
+<p>                              </p>
+<p>                              </p>
+
+<div class="container">
+     <div class="col-8">
+        <div class="row">
+
+                <div class="card" style="width: 100rem;">
+                <div class="media">
+                    <img src="https://klike.net/uploads/posts/2019-03/medium/1551512888_2.jpg" width="189" height="189"  class="mr-3" alt="...">
+                    <div class="media-body">
+                        <h5 class="mt-0">Media heading</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+
+                </div>
+                <div class="btn-group">
+                        <button type="button" class="btn btn-default">like</button>
+                        <button type="button" class="btn btn-default">disslike</button>
+                        <button type="button" class="btn btn-default">5</button>
+                </div>
+
+                </div>
+            </div>
+        </div>
+</div>
+
+<hr align="left" width="900" color="Black" />
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Enter your answer here...</h5>
+        <p class="card-text"></p>
+           <br><br />
+                   <br><br />
+             <br><br />
+
+      </div>
+    </div>
+  </div>
+</div>
+<p>                              </p>
+
+<button type="button" class="btn btn-primary">Answer</button>
+   <br><br />
+                   <br><br />
 </body>
 </html>
