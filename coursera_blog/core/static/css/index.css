@@ -1,27 +1,129 @@
-div.alert {
+.top_bar {
+    border-bottom: 3px solid black;
+    margin-bottom: 30px;
+}
 
-padding: 0rem 0rem;
+.top_bar__input {
+    border-radius: 14px;
+}
+
+.top_bar__title {
+    display: inline-block;
+}
+
+.top_bar__row {
+    padding: 20px;
+}
+
+.top_bar__input {
+    margin-left: 40px;
+}
+
+.top_bar__row__col__signin {
+    margin-top: 20px;
+    margin-bottom: auto;
+}
+
+/*.site-header, .avatar,*/
+/*.blog, .sidebar, .sidebar_two,*/
+/*.blog-item, .media, .site-footer {*/
+/*border: solid 5px red;*/
+/*}*/
+
+.col-3 {
+    padding-right: 10px;
+    /*padding-left: 0;*/
+}
+
+.col-9 {
+    padding-left: 0;
+}
+
+.col-2 {
+    padding-right: 0;
+}
+
+.media {
+    display: flex;
+    margin-top: 10px;
+    border: black solid 2px;
+}
+
+.site-footer {
+    margin-top: 10px;
+    display: flex;
+    align-content: flex-end;
+    flex-direction: column;
+}
+
+.card {
+    width: 100%;
+    height: 100px;
+    background-color: beige;
+    margin: 20px auto 0 auto;
+}
+
+.form-rating-group {
+    display: flex;
+    justify-content: flex-start;
+    margin: 20px 20px 20px 30px;
 }
 
 
-
-
-div.container{
-
-margin: 0px;
-padding-left: 0px;
+.sidebar_two {
+    margin-top: 10px;
 }
 
-main.container{
-padding-left: 0px;
+.form-control {
+    border: black solid 2px;
 }
 
-div.col-3{
-margin: 0px;
-padding-left: 10px;
+hr {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-top: 3px solid black;
 }
 
-div.col-2 > h6 {
-color: #C0C0C0;
-font-weight: 900;
+.col-xs-4 {
+    margin-left: auto;
+    margin-right: 50px;
+}
+
+.btn {
+    background-color: darkgray;
+    color: black;
+    border: black;
+}
+
+.reviews {
+    list-style-type: none;
+    display: inline-block;
+}
+
+.log_reg {
+    margin-right: 10px;
+}
+
+.question_tag, .side_2, .log_reg {
+    text-decoration: underline;
+}
+
+.spinner_container {
+    margin: 20px 0 20px 50px;
+}
+
+.spinner {
+    width: 10px;
+}
+
+.ui-spinner {
+    padding-top: 50px;
+}
+
+li.review-item a {
+    color: darkgray;
+}
+
+.ui-spinner-input {
+    width: 17px;
 }
