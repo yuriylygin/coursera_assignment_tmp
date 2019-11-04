@@ -1,20 +1,21 @@
 from django.shortcuts import render
-from django.views import View
+from django import views
+from .forms import DummyForm
 
 
-class FormDummyView(View):
+class FormDummyView(views.View):
 
     def get(self, request):
-        return render(request, 'form.html', {})
+        form = DummyForm()
+        # print(form.__dict__)
+        return render(request, 'form.html', {'form': form})
 
     def post(self, request):
-        text = request.POST.get('text')
-        grade = request.POST.get('grade')
-        content = request.FILES.get('image').read()
-
-        return render(request, 'form.html', context=dict(
-            text=text,
-            grade=grade,
-            content=content,
-        ))
-
+        form = DummyForm(request.POST, request.FILES)
+        if form.is_valid():
+            context = form.cleaned_data
+            content = context.get('image').read()
+            context['content'] = content
+            return render(request, 'form.html', context=context)
+        else:
+            return render(request, 'error.html', context={'error': form.errors})
