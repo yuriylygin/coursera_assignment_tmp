@@ -9,8 +9,12 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 import json
 
+from marshmallow import ValidationError as MarshmallowError
+
 from .schemas import REVIEW_SCHEMA
-from .forms import DummyForm
+from .forms import DummyForm, ReviewSchema
+
+from pdb import set_trace
 
 
 class FormDummyView(views.View):
@@ -47,3 +51,22 @@ class SchemaView(views.View):
         except ValidationError as exc:
             return JsonResponse({'error': exc.message}, status=400)
 
+
+@method_decorator(csrf_exempt, name='dispatch')
+class MarshView(views.View):
+
+    def post(self, request):
+        try:
+            # from pdb import set_trace; set_trace()
+            document = json.loads(request.body)
+            schema = ReviewSchema(strict=True)
+            set_trace()
+            data = schema.load(document)
+            set_trace()
+            return JsonResponse(data.data, status=201)
+
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+        except MarshmallowError as exc:
+            return JsonResponse({'error': exc.normalized_messages()}, status=400)
