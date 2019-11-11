@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django import views
+from django.views import View
 from django.http import JsonResponse
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
@@ -17,7 +18,7 @@ from .forms import DummyForm, ReviewSchema
 from pdb import set_trace
 
 
-class FormDummyView(views.View):
+class FormDummyView(LoginRequiredMixin, View):
 
     def get(self, request):
         form = DummyForm()
@@ -36,7 +37,7 @@ class FormDummyView(views.View):
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class SchemaView(views.View):
+class SchemaView(View):
 
     def post(self, request):
         try:
@@ -53,7 +54,7 @@ class SchemaView(views.View):
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class MarshView(views.View):
+class MarshView(View):
 
     def post(self, request):
         try:
