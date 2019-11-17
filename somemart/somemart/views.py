@@ -16,6 +16,7 @@ from marshmallow import ValidationError
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
+from basicauth import encode, decode
 from django.contrib.auth import authenticate
 
 from base64 import b64decode
@@ -51,8 +52,9 @@ class AddItemView(View):
         if auth is None:
             return HttpResponse(status=401)
         else:
-            user_encoded = auth.split(' ')[1]
-            login, password = b64decode(user_encoded).decode().split(':')
+            # user_encoded = auth.split(' ')[1]
+            # login, password = b64decode(user_encoded).decode().split(':')
+            login, password = decode(auth)
             user = authenticate(username=login, password=password)
             if user is None:
                 return HttpResponse(status=401)
