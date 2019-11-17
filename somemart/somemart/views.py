@@ -16,6 +16,11 @@ from marshmallow import ValidationError
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
+from basicauth import encode, decode
+from django.contrib.auth import authenticate
+
+from base64 import b16decode
+
 from pdb import set_trace
 
 
@@ -44,12 +49,21 @@ class AddItemView(View):
 
     def post(self, request):
         try:
-            document = json.loads(request.body)
-            schema = ItemSchema(strict=True)
-            data = schema.load(document)
-            item = Item.objects.create(**data.data)
-            data.data['id'] = item.id
-            return JsonResponse(data.data, status=201)
+            auth = request.META['HTTP_AUTHORIZATION']
+            login, password = decode(auth)
+            user = authenticate(username=login, password=password)
+            if user is None:
+                return HttpResponse(status=401)
+            elif not user.is_staff:
+                return HttpResponse(status=403)
+            else:
+                document = json.loads(request.body)
+                schema = ItemSchema(strict=True)
+                data = schema.load(document)
+                item = Item.objects.create(**data.data)
+                data.data['id'] = item.id
+                data.data['login'] = login
+                return JsonResponse(data.data, status=201)
 
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
@@ -96,11 +110,22 @@ class GetItemView(View):
 
     def get(self, request, item_id):
         try:
-            item = Item.objects.get(pk=item_id)
-            reviews = Review.objects.filter(item__id=item.id).order_by('-id')[:5]
-            response = model_to_dict(item)
-            response['reviews'] = [model_to_dict(review) for review in reviews]
-            return JsonResponse(response, status=200)
+            auth = request.META.get('HTTP_AUTHORIZATION', None)
+            if auth is None:
+                return JsonResponse({'error': 'Authentication required'}, status=401)
+            else:
+                login, password = decode(auth)
+                user = authenticate(username=login, password=password)
+                if user is None:
+                    return HttpResponse(status=401)
+                elif not user.is_staff:
+                    return HttpResponse(status=403)
+                else:
+                    item = Item.objects.get(pk=item_id)
+                    reviews = Review.objects.filter(item__id=item.id).order_by('-id')[:5]
+                    response = model_to_dict(item)
+                    response['reviews'] = [model_to_dict(review) for review in reviews]
+                    return JsonResponse(response, status=200)
 
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
